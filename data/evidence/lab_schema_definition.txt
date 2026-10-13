@@ -1,0 +1,24 @@
+﻿=== Columns of lab.orders ===
+   column_name   |          data_type          | character_maximum_length | numeric_precision | numeric_scale | is_nullable 
+-----------------+-----------------------------+--------------------------+-------------------+---------------+-------------
+ order_id        | character varying           |                       10 |                   |               | NO
+ customer_id     | character varying           |                       10 |                   |               | NO
+ order_timestamp | timestamp without time zone |                          |                   |               | NO
+ status          | character varying           |                       20 |                   |               | NO
+ item_count      | integer                     |                          |                32 |             0 | NO
+ subtotal        | numeric                     |                          |                12 |             2 | NO
+ shipping_fee    | numeric                     |                          |                10 |             2 | NO
+ total_amount    | numeric                     |                          |                12 |             2 | NO
+ shipping_region | character varying           |                       40 |                   |               | NO
+ shipping_method | character varying           |                       20 |                   |               | NO
+(10 rows)
+
+=== Constraints of lab.orders ===
+            conname             |                                                 definition                                                 
+--------------------------------+------------------------------------------------------------------------------------------------------------
+ ck_orders_amounts_non_negative | CHECK (((subtotal >= (0)::numeric) AND (shipping_fee >= (0)::numeric) AND (total_amount >= (0)::numeric)))
+ ck_orders_item_count_positive  | CHECK ((item_count > 0))
+ ck_orders_total_matches        | CHECK ((total_amount = (subtotal + shipping_fee)))
+ orders_pkey                    | PRIMARY KEY (order_id)
+(4 rows)
+
