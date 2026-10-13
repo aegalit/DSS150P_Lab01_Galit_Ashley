@@ -1,0 +1,41 @@
+﻿=== Tables outside the system schemas ===
+ table_schema |   table_name    
+--------------+-----------------
+ public       | support_tickets
+(1 row)
+
+=== Columns of support_tickets ===
+  column_name   |          data_type          | is_nullable 
+----------------+-----------------------------+-------------
+ ticket_id      | integer                     | NO
+ customer_id    | character varying           | NO
+ category       | character varying           | NO
+ priority       | character varying           | NO
+ assigned_agent | character varying           | YES
+ opened_at      | timestamp without time zone | NO
+ resolved_at    | timestamp without time zone | YES
+ status         | character varying           | NO
+(8 rows)
+
+=== Keys of support_tickets ===
+ constraint_type |   constraint_name    | column_name 
+-----------------+----------------------+-------------
+ PRIMARY KEY     | support_tickets_pkey | ticket_id
+(1 row)
+
+=== Row count ===
+ count 
+-------
+   250
+(1 row)
+
+=== First five rows ===
+ ticket_id | customer_id | category  | priority | assigned_agent |      opened_at      |     resolved_at     |   status    
+-----------+-------------+-----------+----------+----------------+---------------------+---------------------+-------------
+         1 | C0246       | Technical | High     | J. Reyes       | 2026-06-19 04:00:00 | 2026-06-21 13:00:00 | Resolved
+         2 | C0130       | Product   | Medium   | J. Reyes       | 2026-05-26 07:00:00 | 2026-05-26 23:00:00 | Closed
+         3 | C0094       | Delivery  | Medium   | J. Reyes       | 2026-03-28 09:00:00 | 2026-03-31 17:00:00 | Closed
+         4 | C0057       | Technical | High     | L. Tan         | 2026-04-25 19:00:00 |                     | In Progress
+         5 | C0120       | Delivery  | High     | R. Cruz        | 2026-01-20 02:00:00 | 2026-01-22 21:00:00 | Resolved
+(5 rows)
+
