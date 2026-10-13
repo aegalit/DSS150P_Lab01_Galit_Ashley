@@ -1,0 +1,14 @@
+﻿requesting: https://jsonplaceholder.typicode.com/posts
+status: 200
+content-type: application/json; charset=utf-8
+top-level type: list
+number of records: 100
+sample record:
+{
+  "userId": 1,
+  "id": 1,
+  "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+  "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+}
+snapshot saved to: data\raw\api_snapshot.json
+retrieved_at_utc: 2026-10-13T19:53:57.110460+00:00

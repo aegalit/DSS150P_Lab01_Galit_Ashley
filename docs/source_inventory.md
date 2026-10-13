@@ -64,7 +64,7 @@ This inventory lists the five source systems supplied for Laboratory Activity 1.
 
 Retrieval details from src/inspect_api.py:
 
-- retrieved_at_utc: 2026-10-13T19:34:21.068153+00:00
+- retrieved_at_utc: 2026-10-13T19:53:57.110460+00:00
 - HTTP status: 200
 - Content-Type: application/json; charset=utf-8
 - Top-level structure: list with 100 records
