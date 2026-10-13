@@ -36,7 +36,7 @@ Commands are for Windows PowerShell and are run from the repository root.
 
 1. Clone the repository and open the folder:
 ```
-   git clone <repository-url>
+   git clone <https://github.com/aegalit/DSS150P_Lab01_Galit_Ashley.git>
    cd DSS150P_Lab01_Galit_Ashley
 ```
 2. Create and activate the virtual environment:
