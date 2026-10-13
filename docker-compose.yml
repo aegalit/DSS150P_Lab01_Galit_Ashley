@@ -1,0 +1,15 @@
+   services:
+     postgres:
+       image: postgres:16
+       container_name: dss150p-postgres
+       environment:
+         POSTGRES_USER: dss150p
+         POSTGRES_PASSWORD: dss150p_lab
+         POSTGRES_DB: dss150p_lab
+       ports:
+         - "5433:5432"
+       volumes:
+         - dss150p_pgdata:/var/lib/postgresql/data
+
+   volumes:
+     dss150p_pgdata:
