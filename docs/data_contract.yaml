@@ -1,0 +1,67 @@
+# Chosen source: orders.json
+# Reason: orders.json has a complete and unique order_id and no missing values, so it supports a reliable primary key and clear validation rules.
+
+dataset_name: orders
+version: 1.0
+owner: "unknown - requires confirmation"
+source_type: file
+source_format: json
+acquisition_method: "Batch read of data/raw/orders.json with pandas.read_json, flatten the nested shipping object into region and method, then load into lab.orders in PostgreSQL"
+expected_update_pattern: unknown
+primary_key: order_id
+schema:
+  - name: order_id
+    type: string
+    nullable: false
+    description: "Unique order identifier in the format O followed by five digits, for example O00001"
+  - name: customer_id
+    type: string
+    nullable: false
+    description: "Identifier of the customer who placed the order, for example C0230"
+  - name: order_timestamp
+    type: timestamp
+    nullable: false
+    description: "Date and time the order was placed, ISO 8601 text without a time zone"
+  - name: status
+    type: string
+    nullable: false
+    description: "Current order status, for example Pending, Paid, Packed, Shipped, Delivered or Cancelled"
+  - name: item_count
+    type: integer
+    nullable: false
+    description: "Number of items in the order"
+  - name: subtotal
+    type: decimal
+    nullable: false
+    description: "Order amount before the shipping fee"
+  - name: shipping_fee
+    type: decimal
+    nullable: false
+    description: "Shipping fee charged for the order"
+  - name: total_amount
+    type: decimal
+    nullable: false
+    description: "Final order amount, subtotal plus shipping_fee"
+  - name: shipping.region
+    type: string
+    nullable: false
+    description: "Delivery region, taken from the nested shipping object"
+  - name: shipping.method
+    type: string
+    nullable: false
+    description: "Delivery method, taken from the nested shipping object"
+quality_rules:
+  - "order_id must not be null"
+  - "order_id must be unique"
+  - "order_id must match the format O followed by five digits"
+  - "customer_id must not be null"
+  - "item_count must be greater than 0"
+  - "subtotal, shipping_fee and total_amount must be greater than or equal to 0"
+  - "total_amount must equal subtotal plus shipping_fee"
+  - "order_timestamp must be a valid ISO 8601 date and time"
+  - "shipping must contain both region and method"
+freshness_expectation: "unknown - requires confirmation"
+duplicate_policy: reject
+schema_evolution_policy: "If columns are added, removed, renamed or change type, including new keys inside shipping, the pipeline stops and reports the difference. The source owner reviews it before the schema and this contract are updated."
+consumer: "Analytics team querying lab.orders in PostgreSQL"
+notes: "The profile of the current file found 250 rows, no missing values and no duplicate order_id. Five orders refer to customer IDs C0221, C0222 and C0223, which are not in customers.csv. order_timestamp has no time zone. 40 orders have the status Cancelled but still carry positive amounts. Observed status values are Pending, Paid, Packed, Shipped, Delivered and Cancelled. Observed shipping methods are Standard, Express and Pickup. Unanswered questions for the source owner: who owns the file, how often it is updated, which time zone applies to order_timestamp, and whether cancelled orders should be counted in revenue."
