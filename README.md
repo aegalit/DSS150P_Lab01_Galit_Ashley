@@ -36,32 +36,32 @@ Commands are for Windows PowerShell and are run from the repository root.
 
 1. Clone the repository and open the folder:
 ```
-   git clone <https://github.com/aegalit/DSS150P_Lab01_Galit_Ashley.git>
-   cd DSS150P_Lab01_Galit_Ashley
+git clone <https://github.com/aegalit/DSS150P_Lab01_Galit_Ashley.git>
+cd DSS150P_Lab01_Galit_Ashley
 ```
 2. Create and activate the virtual environment:
 ```
-   python -m venv .venv
-   .\.venv\Scripts\Activate.ps1
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 ```
-   On macOS or Linux use `python3 -m venv .venv` and `source .venv/bin/activate`.
+On macOS or Linux use `python3 -m venv .venv` and `source .venv/bin/activate`.
 3. Install the dependencies:
 ```
-   pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 4. Start PostgreSQL and confirm that the container is running:
 ```
-   docker compose up -d
-   docker ps
+docker compose up -d
+docker ps
 ```
 5. Load the instructor-provided sample table (support_tickets):
 ```
-   Get-Content sql\seed_support_tickets.sql -Raw | docker exec -i dss150p-postgres psql -U dss150p -d dss150p_lab
+Get-Content sql\seed_support_tickets.sql -Raw | docker exec -i dss150p-postgres psql -U dss150p -d dss150p_lab
 ```
-   On macOS or Linux: `docker exec -i dss150p-postgres psql -U dss150p -d dss150p_lab < sql/seed_support_tickets.sql`
+On macOS or Linux: `docker exec -i dss150p-postgres psql -U dss150p -d dss150p_lab < sql/seed_support_tickets.sql`
 6. Create the lab schema and the orders table:
 ```
-   Get-Content sql\01_create_schema.sql -Raw | docker exec -i dss150p-postgres psql -U dss150p -d dss150p_lab
+Get-Content sql\01_create_schema.sql -Raw | docker exec -i dss150p-postgres psql -U dss150p -d dss150p_lab
 ```
 
 The database is published on host port 5433 instead of 5432, because port 5432 was already used by another PostgreSQL container on the development computer. Connection settings: host localhost, port 5433, database dss150p_lab, user dss150p, password dss150p_lab. These credentials are for local development only.
